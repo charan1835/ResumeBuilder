@@ -51,10 +51,7 @@ export default function Home() {
   const SelectedPreview = templates[selectedTemplate].preview;
   const SelectedPdf = templates[selectedTemplate].pdf;
 
-  // Memoize the PDF document component to prevent re-rendering issues
-  const PdfDocument = useMemo(() => (
-    <SelectedPdf key={selectedTemplate} formData={formData} />
-  ), [formData, selectedTemplate]);
+
 
   return (
     <>
@@ -74,7 +71,7 @@ export default function Home() {
             {isClient && (
               <div className="sticky top-6 z-10 mb-4">
                 <PDFDownloadLink
-                  document={PdfDocument}
+                  document={<SelectedPdf formData={formData} />}
                   fileName={`${formData.name || "resume"}.pdf`}
                   className="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors"
                 >

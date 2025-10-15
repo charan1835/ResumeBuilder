@@ -109,7 +109,7 @@ export default function Template({ formData, setFormData, selectedTemplate, setS
           </section>
 
           {renderSection("Personal Information", <>
-            <FormInput id="name" name="name" label="Full Name" placeholder="e.g., Charan Sai" value={formData.name} onChange={handleChange} />
+            <FormInput id="name" name="name" label="Full Name" placeholder="e.g., Hardik" value={formData.name} onChange={handleChange} />
             <FormInput id="title" name="title" label="Job Title" placeholder="e.g., Full Stack Developer" value={formData.title} onChange={handleChange} />
             <FormInput id="email" name="email" label="Email Address" placeholder="you@example.com" value={formData.email} onChange={handleChange} />
             <FormInput id="phone" name="phone" label="Phone Number" placeholder="+91 12345 67890" value={formData.phone} onChange={handleChange} />

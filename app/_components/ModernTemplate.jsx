@@ -99,7 +99,7 @@ export const ModernPdf = ({ formData }) => (
 
 // --- Preview Component ---
 const getInitialData = (formData) => ({
-    name: formData?.name || "Charan Sai",
+    name: formData?.name || "Hardik",
     title: formData?.title || "Full Stack Developer",
     bio: formData?.bio || "A highly motivated and results-oriented software developer with a passion for building robust and scalable web applications.",
     email: formData?.email || "your.email@example.com",
@@ -107,10 +107,10 @@ const getInitialData = (formData) => ({
     linkedin: formData?.linkedin || "linkedin.com/in/yourprofile",
     github: formData?.github || "github.com/yourusername",
     portfolio: formData?.portfolio || "your-portfolio.com",
-    education: formData?.education?.length > 0 && formData.education[0].college ? formData.education : [{ college: "Indian Institute of Technology", degree: "B.Tech in Computer Science", eduStart: "2021", eduEnd: "2025", cgpa: "9.0/10" }],
-    experience: formData?.experience?.length > 0 && formData.experience[0].company ? formData.experience : [{ company: "Tech Solutions Inc.", role: "Software Engineer Intern", expStart: "May 2024", expEnd: "Aug 2024", expDesc: "• Developed and maintained key features for a client-facing web application using React and Node.js.\n• Collaborated with a team of 5 engineers in an Agile environment." }],
-    skills: formData?.skills?.length > 0 && formData.skills[0].name ? formData.skills : [{ name: "JavaScript" }, { name: "React" }, { name: "Node.js" }],
-    projects: formData?.projects?.length > 0 && formData.projects[0].projectName ? formData.projects : [{ projectName: "AI-Powered Resume Builder", projectTech: "Next.js, Tailwind CSS, OpenAI", projectLink: "github.com/your-repo/resume-builder", projectDesc: "A web application that leverages AI to help users create, customize, and optimize their resumes." }],
+    education: formData?.education?.some(edu => edu.college) ? formData.education : [{ college: "Indian Institute of Technology", degree: "B.Tech in Computer Science", eduStart: "2021", eduEnd: "2025", cgpa: "9.0/10" }],
+    experience: formData?.experience?.some(exp => exp.company) ? formData.experience : [{ company: "Tech Solutions Inc.", role: "Software Engineer Intern", expStart: "May 2024", expEnd: "Aug 2024", expDesc: "• Developed and maintained key features for a client-facing web application using React and Node.js.\n• Collaborated with a team of 5 engineers in an Agile environment." }],
+    skills: formData?.skills?.some(skill => skill.name) ? formData.skills : [{ name: "JavaScript" }, { name: "React" }, { name: "Node.js" }],
+    projects: formData?.projects?.some(proj => proj.projectName) ? formData.projects : [{ projectName: "AI-Powered Resume Builder", projectTech: "Next.js, Tailwind CSS, OpenAI", projectLink: "github.com/your-repo/resume-builder", projectDesc: "A web application that leverages AI to help users create, customize, and optimize their resumes." }],
 });
 
 export const ModernPreview = ({ formData }) => {
