@@ -55,9 +55,9 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex h-screen overflow-hidden bg-[#0D1117] text-gray-100 font-sans">
+      <div className="flex flex-col lg:flex-row min-h-screen lg:h-screen overflow-x-hidden bg-[#0D1117] text-gray-100 font-sans">
         {/* Left side - Form */}
-        <div className="w-full lg:w-1/2 overflow-y-auto min-h-0">
+        <div className="w-full lg:w-1/2 min-h-0 overflow-y-visible lg:overflow-y-auto">
           <TemplateForm 
             formData={formData} 
             setFormData={setFormData} 
@@ -66,7 +66,7 @@ export default function Home() {
           />
         </div>
         {/* Right side - Resume Preview */}
-        <div className="hidden lg:block lg:w-1/2 bg-gray-800/20 p-10 overflow-y-auto min-h-0">
+        <div className="w-full lg:w-1/2 bg-gray-800/20 p-4 md:p-8 lg:p-10 min-h-0 border-t border-gray-800/40 lg:border-t-0 overflow-y-visible lg:overflow-y-auto">
           <div className="w-full max-w-4xl mx-auto">
             {isClient && (
               <div className="sticky top-6 z-10 mb-4">

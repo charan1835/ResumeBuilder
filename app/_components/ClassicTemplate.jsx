@@ -130,7 +130,8 @@ export const ClassicPdf = ({ formData }) => {
 };
 
 // --- Preview Component ---
-const SectionTitle = ({ children }) => <h2 className="text-lg font-bold text-slate-700 uppercase tracking-wide mb-4">{children}</h2>;
+const SectionTitle = ({ children }) => <h2 className="text-lg md:text-xl font-bold text-slate-700 uppercase tracking-wide mb-4">{children}</h2>;
+
 const Section = ({ children }) => <section className="mb-8">{children}</section>;
 
 const getInitialData = (formData) => ({
@@ -155,33 +156,53 @@ export const ClassicPreview = ({ formData }) => {
   const cleanLink = (url) => url.replace(/^(https?:\/\/)?(www\.)?/, '');
 
   return (
-    <div className="bg-white text-slate-800 font-sans shadow-2xl rounded-lg w-full max-w-4xl p-12 mx-auto">
+    <div className="bg-white text-slate-800 font-sans shadow-2xl md:rounded-lg w-full max-w-4xl p-6 md:p-12 mx-auto">
       <header className="text-center mb-8">
-        <h1 className="text-4xl font-extrabold tracking-tight text-slate-800">{data.name}</h1>
-        <p className="text-lg mt-2 text-slate-600 font-semibold">{data.title}</p>
-        <div className="flex justify-center items-center gap-x-5 gap-y-2 mt-6 text-sm text-slate-500 flex-wrap">
-          {data.email && <a href={`mailto:${data.email}`} className="flex items-center gap-1.5 hover:text-indigo-600"><FiMail /><span>{cleanLink(data.email)}</span></a>}
-          {data.phone && <a href={`tel:${data.phone}`} className="flex items-center gap-1.5 hover:text-indigo-600"><FiPhone /><span>{data.phone}</span></a>}
-          {data.linkedin && <a href={`https://${cleanLink(data.linkedin)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-indigo-600"><FiLinkedin /><span>{cleanLink(data.linkedin)}</span></a>}
-          {data.github && <a href={`https://${cleanLink(data.github)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-indigo-600"><FiGithub /><span>{cleanLink(data.github)}</span></a>}
-          {data.portfolio && <a href={`https://${cleanLink(data.portfolio)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-indigo-600"><FiExternalLink /><span>{cleanLink(data.portfolio)}</span></a>}
+        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-800">{data.name}</h1>
+        <p className="text-base md:text-lg mt-2 text-slate-600 font-semibold">{data.title}</p>
+        <div className="flex justify-center items-center gap-x-5 gap-y-2 mt-6 text-xs sm:text-sm text-slate-500 flex-wrap">
+          {data.email && (
+            <a href={`mailto:${data.email}`} className="flex items-center gap-1.5 hover:text-indigo-600 max-w-full">
+              <FiMail /><span className="truncate max-w-[200px] sm:max-w-[260px]" title={cleanLink(data.email)}>{cleanLink(data.email)}</span>
+            </a>
+          )}
+          {data.phone && (
+            <a href={`tel:${data.phone}`} className="flex items-center gap-1.5 hover:text-indigo-600">
+              <FiPhone /><span>{data.phone}</span>
+            </a>
+          )}
+          {data.linkedin && (
+            <a href={`https://${cleanLink(data.linkedin)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-indigo-600 max-w-full">
+              <FiLinkedin /><span className="truncate max-w-[200px] sm:max-w-[260px]" title={cleanLink(data.linkedin)}>{cleanLink(data.linkedin)}</span>
+            </a>
+          )}
+          {data.github && (
+            <a href={`https://${cleanLink(data.github)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-indigo-600 max-w-full">
+              <FiGithub /><span className="truncate max-w-[200px] sm:max-w-[260px]" title={cleanLink(data.github)}>{cleanLink(data.github)}</span>
+            </a>
+          )}
+          {data.portfolio && (
+            <a href={`https://${cleanLink(data.portfolio)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-indigo-600 max-w-full">
+              <FiExternalLink /><span className="truncate max-w-[200px] sm:max-w-[260px]" title={cleanLink(data.portfolio)}>{cleanLink(data.portfolio)}</span>
+            </a>
+          )}
         </div>
       </header>
 
-      {data.bio && <Section><p className="text-slate-600 leading-relaxed text-center">{data.bio}</p></Section>}
+      {data.bio && <Section><p className="text-slate-600 leading-relaxed text-center break-words hyphens-auto">{data.bio}</p></Section>}
 
       <Section>
         <SectionTitle>Experience</SectionTitle>
         <div className="space-y-6">
           {data.experience.map((exp, index) => (
             <div key={index}>
-              <div className="flex justify-between items-baseline">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-x-2">
                 <h3 className="text-base font-bold text-slate-800">{exp.role || "Your Role"}</h3>
-                <p className="text-sm font-medium text-slate-500">{exp.expStart || "Start"} - {exp.expEnd || "End"}</p>
+                <p className="text-xs sm:text-sm font-medium text-slate-500 flex-shrink-0">{exp.expStart || "Start"} - {exp.expEnd || "End"}</p>
               </div>
-              <p className="text-sm text-slate-600 italic mt-1">{exp.company || "Company Name"}</p>
-              <ul className="list-disc list-outside mt-2 ml-4 text-slate-600 space-y-1.5 text-sm whitespace-pre-line">
-                {(exp.expDesc || "").split('\n').map((line, i) => (line && <li key={i}>{line.replace('•','').trim()}</li>))}
+              <p className="text-sm text-slate-600 italic mt-1 break-words hyphens-auto">{exp.company || "Company Name"}</p>
+              <ul className="list-disc list-outside mt-2 ml-4 text-slate-600 space-y-1.5 text-sm whitespace-pre-line break-words hyphens-auto">
+                {(exp.expDesc || "").split('\n').map((line, i) => (line && <li key={i} className="break-words hyphens-auto">{line.replace('•','').trim()}</li>))}
               </ul>
             </div>
           ))}
@@ -193,12 +214,16 @@ export const ClassicPreview = ({ formData }) => {
         <div className="space-y-6">
           {data.projects.map((proj, index) => (
             <div key={index}>
-              <div className="flex justify-between items-baseline">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-x-2">
                 <h3 className="text-base font-bold text-slate-800">{proj.projectName || "Project Name"}</h3>
-                {proj.projectLink && <a href={`https://${cleanLink(proj.projectLink)}`} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-indigo-600 hover:underline">{cleanLink(proj.projectLink)}</a>}
+                {proj.projectLink && (
+                  <a href={`https://${cleanLink(proj.projectLink)}`} target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm font-medium text-indigo-600 hover:underline flex-shrink-0 max-w-[200px] sm:max-w-[260px] truncate" title={cleanLink(proj.projectLink)}>
+                    {cleanLink(proj.projectLink)}
+                  </a>
+                )}
               </div>
-              <p className="text-sm text-slate-600 italic font-medium mt-1">Tech Stack: {proj.projectTech || "Tech Used"}</p>
-              <p className="mt-2 text-slate-600 text-sm">{proj.projectDesc || "Project description..."}</p>
+              <p className="text-sm text-slate-600 italic font-medium mt-1 break-words hyphens-auto">Tech Stack: {proj.projectTech || "Tech Used"}</p>
+              <p className="mt-2 text-slate-600 text-sm break-words hyphens-auto">{proj.projectDesc || "Project description..."}</p>
             </div>
           ))}
         </div>

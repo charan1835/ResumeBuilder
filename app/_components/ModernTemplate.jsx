@@ -1,6 +1,6 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet, Link } from '@react-pdf/renderer';
-import { FiMail, FiPhone, FiLinkedin, FiGithub, FiExternalLink } from 'react-icons/fi';
+import { FiMail, FiPhone, FiLinkedin, FiGithub, FiExternalLink, FiChevronDown } from 'react-icons/fi';
 
 // --- PDF Document Component ---
 const pdfStyles = StyleSheet.create({
@@ -127,27 +127,47 @@ export const ModernPreview = ({ formData }) => {
 
   const MainSection = ({ title, children }) => (
     <section className="mb-8">
-      <h2 className="text-xl font-bold text-gray-700 uppercase tracking-wide mb-4">{title}</h2>
+      <h2 className="text-lg md:text-xl font-bold text-gray-700 uppercase tracking-wide mb-4">{title}</h2>
       {children}
     </section>
   );
 
   return (
-    <div className="bg-white text-gray-800 font-sans shadow-2xl rounded-lg w-full max-w-4xl mx-auto flex">
+    <div className="bg-white text-gray-800 font-sans shadow-2xl md:rounded-lg w-full max-w-4xl mx-auto flex flex-col md:flex-row">
       {/* Left Column */}
-      <aside className="w-1/3 bg-gray-800 text-white p-8">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold uppercase tracking-wide">{data.name}</h1>
-          <p className="text-md text-gray-400 mt-2">{data.title}</p>
+      <aside className="w-full md:w-1/3 bg-gray-800 text-white p-4 sm:p-6 md:p-8">
+        <div className="text-center mb-8 md:mb-12">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold uppercase tracking-wide">{data.name}</h1>
+          <p className="text-xs sm:text-sm md:text-base text-gray-400 mt-2">{data.title}</p>
         </div>
 
         <SidebarSection title="Contact">
-          <div className="space-y-3 text-sm">
-            {data.email && <a href={`mailto:${data.email}`} className="flex items-center gap-2 text-gray-300 hover:text-white"><FiMail /><span className="truncate">{cleanLink(data.email)}</span></a>}
+          <div className="space-y-3 text-xs sm:text-sm">
+            {data.email && (
+              <a href={`mailto:${data.email}`} className="flex items-center gap-2 text-gray-300 hover:text-white max-w-full">
+                <FiMail />
+                <span className="truncate max-w-[200px] sm:max-w-[260px]" title={cleanLink(data.email)}>{cleanLink(data.email)}</span>
+              </a>
+            )}
             {data.phone && <div className="flex items-center gap-2 text-gray-300"><FiPhone /><span>{data.phone}</span></div>}
-            {data.linkedin && <a href={`https://${cleanLink(data.linkedin)}`} className="flex items-center gap-2 text-gray-300 hover:text-white"><FiLinkedin /><span className="truncate">{cleanLink(data.linkedin)}</span></a>}
-            {data.github && <a href={`https://${cleanLink(data.github)}`} className="flex items-center gap-2 text-gray-300 hover:text-white"><FiGithub /><span className="truncate">{cleanLink(data.github)}</span></a>}
-            {data.portfolio && <a href={`https://${cleanLink(data.portfolio)}`} className="flex items-center gap-2 text-gray-300 hover:text-white"><FiExternalLink /><span className="truncate">{cleanLink(data.portfolio)}</span></a>}
+            {data.linkedin && (
+              <a href={`https://${cleanLink(data.linkedin)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-300 hover:text-white max-w-full">
+                <FiLinkedin />
+                <span className="truncate max-w-[200px] sm:max-w-[260px]" title={cleanLink(data.linkedin)}>{cleanLink(data.linkedin)}</span>
+              </a>
+            )}
+            {data.github && (
+              <a href={`https://${cleanLink(data.github)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-300 hover:text-white max-w-full">
+                <FiGithub />
+                <span className="truncate max-w-[200px] sm:max-w-[260px]" title={cleanLink(data.github)}>{cleanLink(data.github)}</span>
+              </a>
+            )}
+            {data.portfolio && (
+              <a href={`https://${cleanLink(data.portfolio)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-300 hover:text-white max-w-full">
+                <FiExternalLink />
+                <span className="truncate max-w-[200px] sm:max-w-[260px]" title={cleanLink(data.portfolio)}>{cleanLink(data.portfolio)}</span>
+              </a>
+            )}
           </div>
         </SidebarSection>
 
@@ -155,8 +175,8 @@ export const ModernPreview = ({ formData }) => {
           {data.education.map((edu, i) => (
             <div key={i} className="mb-4">
               <h4 className="font-semibold text-sm">{edu.college}</h4>
-              <p className="text-xs text-gray-400">{edu.degree}</p>
-              <p className="text-xs text-gray-400">{edu.eduStart} - {edu.eduEnd}</p>
+              <p className="text-xs sm:text-sm text-gray-400">{edu.degree}</p>
+              <p className="text-xs sm:text-sm text-gray-400">{edu.eduStart} - {edu.eduEnd}</p>
             </div>
           ))}
         </SidebarSection>
@@ -171,26 +191,33 @@ export const ModernPreview = ({ formData }) => {
       </aside>
 
       {/* Right Column */}
-      <main className="w-2/3 p-10">
+      <main className="w-full md:w-2/3 p-4 sm:p-6 md:p-10">
         {data.bio && (
           <MainSection title="Summary">
-            <p className="text-gray-600 text-sm leading-relaxed">{data.bio}</p>
+            <p className="text-gray-600 text-sm leading-relaxed break-words hyphens-auto">{data.bio}</p>
           </MainSection>
         )}
 
         <MainSection title="Experience">
           <div className="space-y-6">
             {data.experience.map((exp, i) => (
-              <div key={i}>
-                <div className="flex justify-between items-baseline">
-                  <h3 className="text-lg font-bold text-gray-800">{exp.role}</h3>
-                  <p className="text-sm font-medium text-gray-500">{exp.expStart} - {exp.expEnd}</p>
+              <details key={i} open className="md:open group">
+                <summary className="list-none cursor-pointer md:cursor-default flex justify-between items-start">
+                  <div>
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-x-2">
+                      <h3 className="text-base font-bold text-gray-800">{exp.role}</h3>
+                      <p className="text-xs sm:text-sm font-medium text-gray-500 flex-shrink-0">{exp.expStart} - {exp.expEnd}</p>
+                    </div>
+                    <p className="text-sm md:text-base text-gray-600 italic break-words hyphens-auto">{exp.company}</p>
+                  </div>
+                  <FiChevronDown className="md:hidden mt-1 ml-2 flex-shrink-0 transform group-open:-rotate-180 transition-transform duration-200" />
+                </summary>
+                <div className="mt-2">
+                  <ul className="list-disc list-outside ml-4 text-gray-600 space-y-1.5 text-sm whitespace-pre-line break-words hyphens-auto">
+                    {(exp.expDesc || "").split('\n').map((line, j) => (line && <li key={j} className="break-words hyphens-auto">{line.replace('•','').trim()}</li>))}
+                  </ul>
                 </div>
-                <p className="text-md text-gray-600 italic">{exp.company}</p>
-                <ul className="list-disc list-outside mt-2 ml-4 text-gray-600 space-y-1.5 text-sm whitespace-pre-line">
-                  {(exp.expDesc || "").split('\n').map((line, j) => (line && <li key={j}>{line.replace('•','').trim()}</li>))}
-                </ul>
-              </div>
+              </details>
             ))}
           </div>
         </MainSection>
@@ -198,14 +225,29 @@ export const ModernPreview = ({ formData }) => {
         <MainSection title="Projects">
           <div className="space-y-6">
             {data.projects.map((proj, i) => (
-              <div key={i}>
-                <div className="flex justify-between items-baseline">
-                  <h3 className="text-lg font-bold text-gray-800">{proj.projectName}</h3>
-                  {proj.projectLink && <a href={`https://${cleanLink(proj.projectLink)}`} className="text-sm font-medium text-blue-600 hover:underline">{cleanLink(proj.projectLink)}</a>}
-                </div>
-                <p className="text-md text-gray-600 italic font-medium">Tech Stack: {proj.projectTech}</p>
-                <p className="mt-2 text-gray-600 text-sm">{proj.projectDesc}</p>
-              </div>
+              <details key={i} open className="md:open group">
+                <summary className="list-none cursor-pointer md:cursor-default flex justify-between items-start">
+                  <div>
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-x-2">
+                      <h3 className="text-base font-bold text-gray-800">{proj.projectName}</h3>
+                      {proj.projectLink && (
+                        <a
+                          href={`https://${cleanLink(proj.projectLink)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs sm:text-sm font-medium text-blue-600 hover:underline flex-shrink-0 max-w-[200px] sm:max-w-[260px] truncate"
+                          title={cleanLink(proj.projectLink)}
+                        >
+                          {cleanLink(proj.projectLink)}
+                        </a>
+                      )}
+                    </div>
+                    <p className="text-md text-gray-600 italic font-medium break-words hyphens-auto">Tech Stack: {proj.projectTech}</p>
+                  </div>
+                  <FiChevronDown className="md:hidden mt-1 ml-2 flex-shrink-0 transform group-open:-rotate-180 transition-transform duration-200" />
+                </summary>
+                <p className="mt-2 text-gray-600 text-xs sm:text-sm break-words hyphens-auto">{proj.projectDesc}</p>
+              </details>
             ))}
           </div>
         </MainSection>
