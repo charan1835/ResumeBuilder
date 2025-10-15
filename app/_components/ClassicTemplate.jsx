@@ -9,11 +9,13 @@ const pdfStyles = StyleSheet.create({
   header: { textAlign: 'center', marginBottom: 24 },
   name: { fontSize: 28, fontFamily: 'Helvetica-Bold', color: '#1e293b' },
   title: { fontSize: 14, color: '#475569', marginTop: 6, fontFamily: 'Helvetica-Bold' },
-  contactInfo: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', columnGap: 12, rowGap: 4, marginTop: 16, fontSize: 9, color: '#64748b' },
+  // React-PDF does not support columnGap/rowGap; use margins on children instead
+  contactInfo: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginTop: 16, fontSize: 9, color: '#64748b' },
   link: { color: '#475569', textDecoration: 'none' },
-  section: { marginBottom: 20, ':last-child': { marginBottom: 0 } },
+  // Pseudo-selectors like :last-child are not supported in React-PDF
+  section: { marginBottom: 20 },
   sectionTitle: { fontSize: 12, fontFamily: 'Helvetica-Bold', color: '#334155', marginBottom: 12, textTransform: 'uppercase' },
-  subsection: { marginBottom: 16, ':last-child': { marginBottom: 0 } },
+  subsection: { marginBottom: 16 },
   subsectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },
   subheading: { fontSize: 10.5, fontFamily: 'Helvetica-Bold', color: '#1e293b' },
   date: { fontSize: 9, color: '#64748b' },
@@ -22,8 +24,9 @@ const pdfStyles = StyleSheet.create({
   bulletPoint: { flexDirection: 'row', marginLeft: 10 },
   bullet: { width: 10, fontSize: 10 },
   bulletText: { flex: 1 },
-  skillsContainer: { flexDirection: 'row', flexWrap: 'wrap', gap: 6 },
-  skill: { backgroundColor: '#e2e8f0', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 4, fontSize: 9 },
+  // React-PDF does not support gap; emulate with margins
+  skillsContainer: { flexDirection: 'row', flexWrap: 'wrap' },
+  skill: { backgroundColor: '#e2e8f0', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 4, fontSize: 9, marginRight: 6, marginBottom: 6 },
 });
 
 export const ClassicPdf = ({ formData }) => {

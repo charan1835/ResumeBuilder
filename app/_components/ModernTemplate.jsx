@@ -13,7 +13,8 @@ const pdfStyles = StyleSheet.create({
   sidebarTitle: { fontSize: 12, textTransform: 'uppercase', marginBottom: 10, borderBottomWidth: 1, borderBottomColor: '#4a5568', paddingBottom: 5 },
   contactItem: { flexDirection: 'row', alignItems: 'center', marginBottom: 8, fontSize: 9 },
   contactText: { color: '#cbd5e0', textDecoration: 'none' },
-  skill: { backgroundColor: '#4a5568', color: 'white', padding: '4 8', borderRadius: 4, fontSize: 9, marginBottom: 5 },
+  // React-PDF does not support shorthand string padding; use explicit values
+  skill: { backgroundColor: '#4a5568', color: 'white', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 4, fontSize: 9, marginRight: 5, marginBottom: 5 },
   mainSection: { marginBottom: 24 },
   mainTitle: { fontSize: 14, fontFamily: 'Helvetica-Bold', textTransform: 'uppercase', color: '#2d3748', marginBottom: 12 },
   bio: { fontSize: 10, color: '#4a5568', lineHeight: 1.4, marginBottom: 20 },
@@ -25,6 +26,7 @@ const pdfStyles = StyleSheet.create({
   bulletPoint: { flexDirection: 'row', marginLeft: 10 },
   bullet: { width: 10, fontSize: 10 },
   bulletText: { flex: 1 },
+  skillsRow: { flexDirection: 'row', flexWrap: 'wrap' },
 });
 
 export const ModernPdf = ({ formData }) => (
@@ -58,7 +60,7 @@ export const ModernPdf = ({ formData }) => (
 
         <View style={pdfStyles.sidebarSection}>
           <Text style={pdfStyles.sidebarTitle}>Skills</Text>
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 5 }}>
+          <View style={pdfStyles.skillsRow}>
             {formData.skills.map((skill, i) => skill.name && <Text key={i} style={pdfStyles.skill}>{skill.name}</Text>)}
           </View>
         </View>
