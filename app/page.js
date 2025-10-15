@@ -37,24 +37,24 @@ export default function Home() {
     <>
       <div className="flex h-screen overflow-hidden bg-[#0D1117] text-gray-100 font-sans">
         {/* Left side - Form */}
-        <Templete formData={formData} setFormData={setFormData} />
+        <div className="w-full lg:w-1/2 overflow-y-auto min-h-0"><Templete formData={formData} setFormData={setFormData} /></div>
         {/* Right side - Resume Preview */}
-        <div className="hidden lg:block lg:w-1/2 bg-gray-800/20 p-10 overflow-y-auto">
-          <div className="sticky top-6 flex flex-col items-center gap-4 w-full max-w-4xl mx-auto h-10">
+        <div className="hidden lg:block lg:w-1/2 bg-gray-800/20 p-10 overflow-y-auto min-h-0">
+          <div className="w-full max-w-4xl mx-auto">
             {isClient && (
-              <PDFDownloadLink
-                document={<PdfDocument formData={formData} />}
-                fileName={`${formData.name || "resume"}.pdf`}
-                className="w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors"
-              >
-                {({ loading }) =>
-                  loading ? 'Generating PDF...' : 'Download as PDF'
-                }
-              </PDFDownloadLink>
+              <div className="sticky top-6 z-10 mb-4">
+                <PDFDownloadLink
+                  document={<PdfDocument formData={formData} />}
+                  fileName={`${formData.name || "resume"}.pdf`}
+                  className="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors"
+                >
+                  {({ loading }) =>
+                    loading ? 'Generating PDF...' : 'Download as PDF'
+                  }
+                </PDFDownloadLink>
+              </div>
             )}
-            <div className="w-full">
-              <ResumePreview formData={formData} />
-            </div>
+            <ResumePreview formData={formData} />
           </div>
         </div>
       </div>

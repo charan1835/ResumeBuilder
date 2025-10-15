@@ -19,8 +19,9 @@ const Section = ({ children }) => (
 
 export default function ResumePreview({ formData }) {
   // Use provided data or fall back to placeholder text for the preview
+  var _formData_education, _formData_experience, _formData_skills, _formData_projects;
   const data = {
-    name: formData?.name || "Virat Kohli",
+    name: formData?.name || "Hardik",
     title: formData?.title || "Full Stack Developer",
     bio: formData?.bio || "A highly motivated and results-oriented software developer with a passion for building robust and scalable web applications. Proficient in front-end and back-end technologies.",
     email: formData?.email || "your.email@example.com",
@@ -29,21 +30,38 @@ export default function ResumePreview({ formData }) {
     github: formData?.github || "github.com/yourusername",
     portfolio: formData?.portfolio || "your-portfolio.com",
 
-    education: formData?.education?.length > 0 ? formData.education : [{
-      college: "Indian Institute of Technology", degree: "B.Tech in Computer Science", eduStart: "2021", eduEnd: "2025", cgpa: "9.0/10"
-    }],
+    education: (formData === null || formData === void 0 ? void 0 : (_formData_education = formData.education) === null || _formData_education === void 0 ? void 0 : _formData_education.length) > 0 ? formData.education : [
+            {
+                college: "Indian Institute of Technology",
+                degree: "B.Tech in Computer Science",
+                eduStart: "2021",
+                eduEnd: "2025",
+                cgpa: "9.0/10"
+            }
+        ],
 
-    experience: formData?.experience?.length > 0 ? formData.experience : [{
-      company: "Tech Solutions Inc.", role: "Software Engineer Intern", expStart: "May 2024", expEnd: "Aug 2024", expDesc: "• Developed and maintained key features for a client-facing web application using React and Node.js.\n• Collaborated with a team of 5 engineers in an Agile environment to deliver high-quality code.\n• Improved API response time by 15% through query optimization."
-    }],
+    experience: (formData === null || formData === void 0 ? void 0 : (_formData_experience = formData.experience) === null || _formData_experience === void 0 ? void 0 : _formData_experience.length) > 0 ? formData.experience : [
+            {
+                company: "Tech Solutions Inc.",
+                role: "Software Engineer Intern",
+                expStart: "May 2024",
+                expEnd: "Aug 2024",
+                expDesc: "• Developed and maintained key features for a client-facing web application using React and Node.js.\n• Collaborated with a team of 5 engineers in an Agile environment to deliver high-quality code.\n• Improved API response time by 15% through query optimization."
+            }
+        ],
 
-    skills: formData?.skills?.length > 0 ? formData.skills : [
-      { name: "JavaScript" }, { name: "React" }, { name: "Node.js" }, { name: "Tailwind CSS" }
-    ],
+    skills: (formData === null || formData === void 0 ? void 0 : (_formData_skills = formData.skills) === null || _formData_skills === void 0 ? void 0 : _formData_skills.length) > 0 ? formData.skills : [
+            { name: "JavaScript" }, { name: "React" }, { name: "Node.js" }, { name: "Tailwind CSS" }
+        ],
 
-    projects: formData?.projects?.length > 0 ? formData.projects : [{
-      projectName: "AI-Powered Resume Builder", projectTech: "Next.js, Tailwind CSS, OpenAI", projectLink: "github.com/your-repo/resume-builder", projectDesc: "A web application that leverages AI to help users create, customize, and optimize their resumes. Features include real-time previews and AI-driven content suggestions."
-    }],
+    projects: (formData === null || formData === void 0 ? void 0 : (_formData_projects = formData.projects) === null || _formData_projects === void 0 ? void 0 : _formData_projects.length) > 0 ? formData.projects : [
+            {
+                projectName: "AI-Powered Resume Builder",
+                projectTech: "Next.js, Tailwind CSS, OpenAI",
+                projectLink: "github.com/your-repo/resume-builder",
+                projectDesc: "A web application that leverages AI to help users create, customize, and optimize their resumes. Features include real-time previews and AI-driven content suggestions."
+            }
+        ],
   };
 
   // Split skills string into an array for nice formatting
