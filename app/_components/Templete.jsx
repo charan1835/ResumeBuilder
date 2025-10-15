@@ -37,7 +37,7 @@ const FormTextarea = ({ id, name, label, placeholder, value, onChange, rows = 3,
 );
 
 
-export default function Template({ formData, setFormData }) {
+export default function Template({ formData, setFormData, selectedTemplate, setSelectedTemplate }) {
   const handleChange = (e) => { // Handles simple fields
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -92,8 +92,24 @@ export default function Template({ formData, setFormData }) {
             </p>
           </header>
 
+          <section className="mb-10">
+            <h2 className="text-2xl font-bold text-gray-200 mb-6 border-l-4 border-blue-500 pl-4">
+              Choose Your Template
+            </h2>
+            <div className="bg-gray-900/70 p-6 rounded-xl shadow-lg">
+              <div className="grid grid-cols-2 gap-4">
+                <button onClick={() => setSelectedTemplate('modern')} className={`p-4 rounded-lg text-center font-semibold transition-all duration-200 ${selectedTemplate === 'modern' ? 'bg-blue-600 text-white ring-2 ring-blue-400' : 'bg-gray-800 hover:bg-gray-700 text-gray-300'}`}>
+                  Modern
+                </button>
+                <button onClick={() => setSelectedTemplate('classic')} className={`p-4 rounded-lg text-center font-semibold transition-all duration-200 ${selectedTemplate === 'classic' ? 'bg-blue-600 text-white ring-2 ring-blue-400' : 'bg-gray-800 hover:bg-gray-700 text-gray-300'}`}>
+                  Classic
+                </button>
+              </div>
+            </div>
+          </section>
+
           {renderSection("Personal Information", <>
-            <FormInput id="name" name="name" label="Full Name" placeholder="e.g., Hardik" value={formData.name} onChange={handleChange} />
+            <FormInput id="name" name="name" label="Full Name" placeholder="e.g., Charan Sai" value={formData.name} onChange={handleChange} />
             <FormInput id="title" name="title" label="Job Title" placeholder="e.g., Full Stack Developer" value={formData.title} onChange={handleChange} />
             <FormInput id="email" name="email" label="Email Address" placeholder="you@example.com" value={formData.email} onChange={handleChange} />
             <FormInput id="phone" name="phone" label="Phone Number" placeholder="+91 12345 67890" value={formData.phone} onChange={handleChange} />
