@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 // You can create a reusable component for this or define it here
 const FormInput = ({ id, name, label, placeholder, value, onChange, type = "text", span = "col-span-1" }) => (
@@ -38,6 +38,36 @@ const FormTextarea = ({ id, name, label, placeholder, value, onChange, rows = 3,
 
 
 export default function Template({ formData, setFormData, selectedTemplate, setSelectedTemplate }) {
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  const handleGenerateSummary = async () => {
+    setIsGenerating(true);
+    try {
+      const response = await fetch('/api/generate-summary', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          experience: formData.experience,
+          skills: formData.skills,
+          projects: formData.projects,
+          title: formData.title,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to generate summary. Please try again.');
+      }
+
+      const { summary } = await response.json();
+      setFormData(prev => ({ ...prev, bio: summary }));
+
+    } catch (error) {
+      console.error("Error generating summary:", error);
+      // Here you could add a state to show an error toast to the user
+    } finally {
+      setIsGenerating(false);
+    }
+  };
   const handleChange = (e) => { // Handles simple fields
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -116,7 +146,17 @@ export default function Template({ formData, setFormData, selectedTemplate, setS
             <FormInput id="linkedin" name="linkedin" label="LinkedIn URL" placeholder="linkedin.com/in/..." value={formData.linkedin} onChange={handleChange} />
             <FormInput id="github" name="github" label="GitHub URL" placeholder="github.com/..." value={formData.github} onChange={handleChange} />
             <FormInput id="portfolio" name="portfolio" label="Portfolio Website" placeholder="your-portfolio.com" value={formData.portfolio} onChange={handleChange} span="col-span-2"/>
-            <FormTextarea id="bio" name="bio" label="Short Bio / Summary" placeholder="A brief professional summary about yourself..." value={formData.bio} onChange={handleChange} />
+            <div className="col-span-2">
+              <div className="flex justify-between items-center mb-2">
+                <label htmlFor="bio" className="block text-sm font-medium text-gray-400">
+                  Short Bio / Summary
+                </label>
+                <button type="button" onClick={handleGenerateSummary} disabled={isGenerating} className="text-xs bg-blue-600/50 text-white font-semibold py-1 px-3 rounded-md hover:bg-blue-600/80 transition-colors disabled:bg-gray-600 disabled:cursor-not-allowed">
+                  {isGenerating ? 'Generating...' : '✨ Generate with AI'}
+                </button>
+              </div>
+              <FormTextarea id="bio" name="bio" label="" placeholder="A brief professional summary about yourself..." value={formData.bio} onChange={handleChange} span="col-span-2" />
+            </div>
           </>)}
 
           <section className="mb-10">
