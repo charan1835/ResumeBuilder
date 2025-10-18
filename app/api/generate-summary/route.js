@@ -2,8 +2,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
 
 // Make sure to set your GOOGLE_API_KEY in your .env.local file
-const genAI = new GoogleGenerativeAI(process.AIzaSyDEYzNwgwqu6XWkP1gJ7H6H5gVAEHqGYZg
-);
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
 function constructPrompt(data) {
   const { experience, skills, projects, title } = data;
